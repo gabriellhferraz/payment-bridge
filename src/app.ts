@@ -1,13 +1,24 @@
 import express from "express";
 import routes from "./routes/routes";
+import { AppDataSource } from "./datasource";
+import 'dotenv/config';
+import "reflect-metadata"
 
-const port = 3000;
+const port = process.env.APP_PORT;
 const app = express();
 
 app.use("/api", routes);
 
-app.listen(port, () =>{
-    console.log(`Server running at port ${port}`);
-});
+AppDataSource.initialize()
+    .then(() => {
+        console.log("✅ Banco de dados conectado com sucesso!");
+        
+        app.listen(port, () => {
+            console.log("🚀 Servidor rodando em http://localhost:3000");
+        });
+    })
+    .catch((err) => {
+        console.error("❌ Erro ao conectar com o banco:", err);
+    });
 
-export default  app;
+export default app;
