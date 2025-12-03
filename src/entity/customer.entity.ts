@@ -1,14 +1,34 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { Customer } from "../interfaces/customer.interface";
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
+import { Customer } from '../interfaces/entityInterfaces/customer.interface';
 
-@Entity({ name: "customer" })
-export class CustomerEntity implements Customer {
-  @PrimaryGeneratedColumn()
-  id: number;
+@Entity('customers')
+@Unique('uq_customers_cpfCnpj', ['cpfCnpj'])
+export class CustomerEntity  implements Customer {
 
-  @Column()
-  name: string;
+    @PrimaryGeneratedColumn('identity', { type: 'bigint', primaryKeyConstraintName: 'pk_customers_id' })
+    id!: number;
+    
+    @Column({ type: 'varchar', length: 100, nullable: false })
+    name!: string;
 
-  @Column({ name: "cpj_cnpj" })
-  cpfCnpj: string;
+    @Column({ type: 'varchar', length: 20, nullable: false })
+    cpfCnpj!: string;
+
+    @Column({ type: 'varchar', length: 320, nullable: false })
+    email!: string;
+
+    @Column({ type: 'varchar', length: 15, nullable: false })
+    phone!: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: false })
+    address!: string;
+
+    @Column({ type: 'varchar', length: 20, nullable: false })
+    addressNumber!: string;
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    complement!: string;
+
+    @Column({ type: 'varchar', length: 10, nullable: false })
+    postalCode!: string;
 }

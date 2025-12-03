@@ -2,15 +2,20 @@
   "name": "payment-bridge",
   "version": "1.0.0",
   "description": "O **payment-bridge** é um microserviço desenvolvido em **Node.js + TypeScript** que funciona como uma ponte entre diversos gateways de pagamento, como Asaas, Cielo, Mercado Pago, PagSeguro, entre outros.",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only ./src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/database/-source.ts",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/database/data-source.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
@@ -20,6 +25,7 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.27"
