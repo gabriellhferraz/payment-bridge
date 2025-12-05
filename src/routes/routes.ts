@@ -6,7 +6,7 @@ const routes = Router();
 
 routes.get('/health', HealthController.getHealth);
 
-const userController = new UserController();
+const userController =  new UserController();
 routes.post('/users', userController.create);
 
 export default routes;
