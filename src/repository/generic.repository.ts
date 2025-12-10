@@ -1,4 +1,4 @@
-import {  EntityTarget, ObjectLiteral} from "typeorm";
+import { EntityTarget, ObjectLiteral } from "typeorm";
 import { IGenericRepository } from "../interfaces/repository/genericRepository.interface";
 import { AppDataSource } from "../database/data-source";
 
@@ -17,8 +17,12 @@ export abstract class GenericRepository<T extends ObjectLiteral> implements IGen
         throw new Error("Method not implemented.");
     }
     create(data: T): Promise<T> {
-        const createdEntity = this.repository.create(data);
-        return this.repository.save(createdEntity);
+        try {
+            const createdEntity = this.repository.create(data);
+            return this.repository.save(createdEntity);
+        } catch (error) {
+            throw new Error("Error creating entity: " + (error as Error).message);
+        }
     }
     update(id: number): Promise<T> {
         throw new Error("Method not implemented.");

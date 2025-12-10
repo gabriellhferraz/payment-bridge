@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
-import { Customer } from '../interfaces/entityInterfaces/customer.interface';
+import { ICustomer } from '../interfaces/entity/customer.interface';
 
 @Entity('customers')
 @Unique('uq_customers_cpfCnpj', ['cpfCnpj'])
-export class CustomerEntity  implements Customer {
+export class CustomerEntity  implements ICustomer {
 
     @PrimaryGeneratedColumn('identity', { type: 'bigint', primaryKeyConstraintName: 'pk_customers_id' })
     id!: number;

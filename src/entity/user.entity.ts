@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Unique, UpdateDateColumn } from "typeorm";
-import { User } from "../interfaces/entityInterfaces/user.interface";
+import { IUser } from "../interfaces/entity/user.interface";
 
 @Entity("users")
 @Unique("uq_users_email", ["email"])
 @Unique("uq_users_username", ["username"])
-export class UserEntity implements User {
+export class UserEntity implements IUser {
   @PrimaryGeneratedColumn("identity", {type: "bigint", primaryKeyConstraintName: "pk_users_id"})
   id!: Number;
 
